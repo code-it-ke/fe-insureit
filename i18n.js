@@ -1,0 +1,67 @@
+const i18next = require('i18next');
+const XHR = require('i18next-xhr-backend');
+const LanguageDetector = require('i18next-browser-languagedetector');
+
+const i18n = i18next.default ? i18next.default : i18next;
+
+const options = {
+    fallbackLang: 'en',
+    load: 'LanguageOnly',
+
+    // have a common namespace used around the whole app
+    ns: ['common'],
+    defaultNS: 'common',
+
+    debug: false, // process.env.NODE_ENV !== 'production'
+    saveMissing: true,
+
+    interpolation: {
+        escapeValue: false, // not needed for react
+        formatSeparator: ',',
+        format: (value, format, lang) => {
+            if(format === 'uppercase') return value.toUpperCase();
+            return value;
+        },
+    },
+};
+
+// for browser use xhr back-end to load translations and browser lang detector
+if(process.browser){
+    i18n
+        .use(XHR)
+        // .use(Cache)
+        .use(LanguageDetector);
+}
+
+// initialize if not already initialized
+if (!i18n.initialized) i18n.init(options);
+
+// a simple helper to getInitialProps passed on loaded i18n data
+i18n.getInitialProps = (req, namespaces) => {
+    if(!namespaces) namespaces = i18n.options.defaultNS;
+    if( typeof namespaces === 'string') namespaces = [namespaces];
+
+    // do not serialize i18next instance avoid sending it to client
+    if(req) req.i18n.toJSON = () => null;
+
+    const ret = {
+        i18n: req ? req.i18n : i18n, // use the instance on req - fixed language on request (avoid issues in race conditions with languages on different users)
+    };
+
+    // for server-side pass down initial translations
+    if(req){
+        const initialI18nStore = {};
+        req.i18n.languages.forEach(l => {
+            initialI18nStore[l] = {};
+            namespaces.forEach(ns => {
+                initialI18nStore[l][ns] = (req.i18n.ServiceWorkerMessageEvent.resourceStore.data[l] || {})[ns] || {};
+            });
+        });
+        ret.initialI18nStore = initialI18nStore;
+        ret.initialLanguage = req.i18n.language;
+    }
+
+    return ret;
+};
+
+module.exports = i18n;
