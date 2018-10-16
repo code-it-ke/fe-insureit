@@ -18,12 +18,16 @@
   "license": "UNLICENSCED",
   "private": true,
   "dependencies": {
+    "@sentry/browser": "^4.1.1",
     "compression": "^1.7.3",
     "dotenv": "^6.1.0",
     "express": "^4.16.4",
+    "grid-styled": "^5.0.2",
     "next": "^7.0.2",
     "react": "^16.5.2",
-    "react-dom": "^16.5.2"
+    "react-dom": "^16.5.2",
+    "styled-components": "^4.0.0",
+    "styled-system": "^3.1.11"
   },
   "devDependencies": {
     "enzyme": "^3.7.0",
