@@ -1,0 +1,52 @@
+{
+  "name": "fe-insureit",
+  "version": "1.0.0",
+  "description": "A front-end application for insuring through various classes of insurance",
+  "main": "server",
+  "engines": {
+    "node": "^8.0.0",
+    "yarn": ">= 1.3.2"
+  },
+  "scripts": {
+    "dev": "node server.js",
+    "start": "NODE_ENV=production node server.js",
+    "build": "next build src"
+  },
+  "keywords": [],
+  "repository": "https://github.com/code-it-ke/fe-insureit.git",
+  "author": "Odhiambo Ochieng",
+  "license": "UNLICENSCED",
+  "private": true,
+  "dependencies": {
+    "@sentry/browser": "^4.1.1",
+    "compression": "^1.7.3",
+    "dotenv": "^6.1.0",
+    "express": "^4.16.4",
+    "grid-styled": "^5.0.2",
+    "i18next": "^11.9.1",
+    "i18next-browser-languagedetector": "^2.2.3",
+    "i18next-express-middleware": "^1.4.1",
+    "i18next-node-fs-backend": "^2.1.0",
+    "i18next-xhr-backend": "^1.5.1",
+    "next": "^7.0.2",
+    "react": "^16.5.2",
+    "react-dom": "^16.5.2",
+    "react-i18next": "^8.0.7",
+    "styled-components": "^4.0.0",
+    "styled-system": "^3.1.11"
+  },
+  "devDependencies": {
+    "enzyme": "^3.7.0",
+    "enzyme-adapter-react-16": "^1.6.0",
+    "enzyme-to-json": "^3.3.4",
+    "jest": "^23.6.0",
+    "nodemon": "^1.18.4"
+  },
+  "prettier": {
+    "printWidth": 100,
+    "arrowParens": "always"
+  },
+  "jest": {
+    "setupTestFrameworkScriptFile": "<rootDir>tests/setupTests.js"
+  }
+}

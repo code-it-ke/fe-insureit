@@ -1,0 +1,17 @@
+---
+root: true
+extends:
+  - semistandard-react
+rules:
+  no-multiple-empty-lines:
+    - error
+    - max: 2
+  comma-dangle:
+    - error
+    - always-multiline
+env:
+  browser: true
+  node: true
+  jest/globals: true
+plugins:
+  - jest
